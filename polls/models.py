@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 import datetime
 from django.utils import timezone
@@ -9,6 +10,7 @@ class Poll(models.Model):
     questions = models.CharField(max_length=255)
     pub_date = models.DateTimeField('date published', default=timezone.now)
     expiry_date = models.DateTimeField('expiry date', null=True, blank=True)
+    voted_by = models.ManyToManyField(User, related_name='voted_polls', blank=True)
 
     def __str__(self):
         return self.questions
